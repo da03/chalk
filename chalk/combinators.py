@@ -85,8 +85,10 @@ def above(self: Diagram, other: Diagram) -> Diagram:
 # appends
 
 
-def beside(self: Diagram, other: Diagram, direction: V2) -> Diagram:
-    return atop(self, juxtapose(self, other, direction))
+def beside(self: Diagram, other: Diagram, direction: V2, subdiagram_name=None) -> Diagram:
+    if subdiagram_name is not None:
+        other = other.named(subdiagram_name + '.combined')
+    return atop(self, juxtapose(self, other, direction, subdiagram_name))
 
 
 def place_at(
@@ -105,7 +107,7 @@ def place_on_path(diagrams: Iterable[Diagram], path: Path) -> Diagram:
 
 
 def cat(
-    diagrams: Iterable[Diagram], v: V2, sep: Optional[float] = None
+    diagrams: Iterable[Diagram], v: V2, sep: Optional[float] = None, subdiagram_name=None
 ) -> Diagram:
     from chalk.core import empty
 
@@ -115,7 +117,7 @@ def cat(
     if start is None:
         return empty()
     return reduce(
-        lambda a, b: a.beside(sep_dia, v).beside(b, v), diagrams, start
+        lambda a, b: a.beside(sep_dia, v, subdiagram_name).beside(b, v, subdiagram_name+'.combined' if subdiagram_name is not None else None), diagrams, start
     )
 
 
@@ -156,7 +158,7 @@ def vstrut(height: Optional[float]) -> Diagram:
     return Primitive.from_shape(Spacer(0, height))
 
 
-def hcat(diagrams: Iterable[Diagram], sep: Optional[float] = None) -> Diagram:
+def hcat(diagrams: Iterable[Diagram], sep: Optional[float] = None, subdiagram_name=None) -> Diagram:
     """
     Stack diagrams next to each other with `besides`.
 
@@ -168,10 +170,10 @@ def hcat(diagrams: Iterable[Diagram], sep: Optional[float] = None) -> Diagram:
         Diagram: New diagram
 
     """
-    return cat(diagrams, unit_x, sep)
+    return cat(diagrams, unit_x, sep, subdiagram_name)
 
 
-def vcat(diagrams: Iterable[Diagram], sep: Optional[float] = None) -> Diagram:
+def vcat(diagrams: Iterable[Diagram], sep: Optional[float] = None, subdiagram_name=None) -> Diagram:
     """
     Stack diagrams above each other with `above`.
 
@@ -183,7 +185,7 @@ def vcat(diagrams: Iterable[Diagram], sep: Optional[float] = None) -> Diagram:
         Diagrams
 
     """
-    return cat(diagrams, unit_y, sep)
+    return cat(diagrams, unit_y, sep, subdiagram_name)
 
 
 # Extra
@@ -221,7 +223,7 @@ def beside_snug(self: Diagram, other: Diagram, direction: V2) -> Diagram:
     return atop(self, juxtapose_snug(self, other, direction))
 
 
-def juxtapose(self: Diagram, other: Diagram, direction: V2) -> Diagram:
+def juxtapose(self: Diagram, other: Diagram, direction: V2, subdiagram_name=None) -> Diagram:
     """Given two diagrams ``a`` and ``b``, ``a.juxtapose(b, v)``
     places ``b`` to touch ``a`` along angle ve .
 
@@ -233,8 +235,8 @@ def juxtapose(self: Diagram, other: Diagram, direction: V2) -> Diagram:
     Returns:
         Diagram: Repositioned ``b`` diagram
     """
-    if hasattr(self, 'subdiagram_root'):
-        envelope1 = self.get_subdiagram(self.subdiagram_root).get_envelope()
+    if subdiagram_name is not None:
+        envelope1 = self.get_subdiagram(subdiagram_name).get_envelope()
     else:
         envelope1 = self.get_envelope()
     envelope2 = other.get_envelope()

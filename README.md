@@ -1,5 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/chalk-diagrams/chalk/master/examples/output/logo-sm.png" width=300></p>
 
+Note: this is a fork of the original [chalk-diagrams](https://github.com/chalk-diagrams/chalk/) library by [Dan Oneață](http://doneata.bitbucket.io/) and [Alexander Rush](http://rush-nlp.com/), and the main change is to add helper functions to facilitate using it with ChatGPT Plugins (https://chalk-diagrams.com).
+
 Chalk is a declarative drawing library.
 The API draws heavy inspiration from
 Haskell's [diagrams](https://diagrams.github.io/),
@@ -12,10 +14,10 @@ The documentation is available at [https://chalk-diagrams.github.io](https://cha
 
 ## Installation
 
-The library is available on PyPI as `chalk-diagrams` and can be installed with `pip`:
+This is a modified version of the original [chalk-diagrams](https://github.com/chalk-diagrams/chalk/) library, so please install using this repo.
 
 ```bash
-pip install git+https://github.com/chalk-diagrams/chalk/
+pip install git+https://github.com/da03/chalk/
 ```
 
 On Debian (or Colab) you will need to install Cairo for [PyCairo](https://pycairo.readthedocs.io)
@@ -35,14 +37,6 @@ on Debian these dependencies can be installed as follows:
 
 ```bash
 sudo apt-get install pdf2svg texlive texlive-science texlive-latex-recommended texlive-latex-extra
-```
-
-**Installation with Conda**
-
-You can install the library with **conda** from `conda-forge` channel.
-
-```powershell
-conda install -c conda-forge chalk-diagrams
 ```
 
 ## Overview

@@ -4,7 +4,11 @@ from chalk.types import Diagram
 # Functions mirroring Diagrams.Align and Diagrams.2d.Align
 
 
-def align_to(self: Diagram, v: V2) -> Diagram:
+def align_to(self: Diagram, v: V2, subdiagram_name=None) -> Diagram:
+    if subdiagram_name is None:
+        envelope = self.get_envelope()
+    else:
+        envelope = self.get_subdiagram(subdiagram_name).get_envelope()
     envelope = self.get_envelope()
     t = Affine.translation(-envelope.envelope_v(v))
     return self.apply_transform(t)
