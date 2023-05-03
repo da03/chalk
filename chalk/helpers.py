@@ -11,7 +11,7 @@ from chalk.transform import (
     unit_y,
 )
 from colour import Color
-from math import cos, sin
+from math import cos, sin, pi
 
 black = Color("black")
 lightgrey = Color("lightgrey")
