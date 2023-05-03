@@ -55,11 +55,11 @@ def overlap(objects, align=None):
 def nextto(left, right, sep=None, align=None, subdiagram_name=None):
     return chalk.hcat(prealign([left, right], align, subdiagram_name), sep=sep, subdiagram_name=subdiagram_name).center_xy()
 
-def nextto_in(diagram, left, right, sep=None, align=None):
+def nextto_in(diagram, left, right, sep=0, align=None):
     return nextto(diagram, right, sep=sep, align=align, subdiagram_name=left)
 
 def above(top, bottom, sep=None, align=None, subdiagram_name=None):
     return chalk.vcat(prealign([top, bottom], align, subdiagram_name), sep=sep, subdiagram_name=subdiagram_name).center_xy()
 
-def above_in(diagram, top, bottom, sep=None, align=None):
+def above_in(diagram, top, bottom, sep=0, align=None):
     return above(diagram, bottom, sep=sep, align=align, subdiagram_name=top)
