@@ -233,7 +233,10 @@ def juxtapose(self: Diagram, other: Diagram, direction: V2) -> Diagram:
     Returns:
         Diagram: Repositioned ``b`` diagram
     """
-    envelope1 = self.get_envelope()
+    if hasattr(self, 'subdiagram_root'):
+        envelope1 = self.get_subdiagram(self.subdiagram_root).get_envelope()
+    else:
+        envelope1 = self.get_envelope()
     envelope2 = other.get_envelope()
     d = envelope1.envelope_v(direction) - envelope2.envelope_v(-direction)
     t = Affine.translation(d)
