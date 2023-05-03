@@ -44,7 +44,7 @@ def regular_polygon(sides: int, side_length: float) -> Diagram:
     return Trail.regular_polygon(sides, side_length).centered().stroke()
 
 
-def triangle(width: float) -> Diagram:
+def equilateral_triangle(width: float) -> Diagram:
     """Draws an equilateral triangle with the side length specified by
     the ``width`` argument. The origin is the traingle's centroid."""
     return regular_polygon(3, width)

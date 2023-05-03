@@ -30,8 +30,8 @@ def width(d):
 
 def triangle(width, height=None):
     if height is None:
-        return chalk.triangle(width)
-    return chalk.triangle(1).scale_x(width).scale_y(height)
+        return chalk.equilateral_triangle(width)
+    return chalk.equilateral_triangle(1).scale_x(width).scale_y(height)
 
 def prealign(args, align=None, subdiagram_name=None):
     if align is None or align=="c":
