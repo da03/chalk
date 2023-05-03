@@ -1,4 +1,15 @@
 import chalk
+from chalk.transform import (
+    P2,
+    V2,
+    Affine,
+    BoundingBox,
+    from_radians,
+    origin,
+    to_radians,
+    unit_x,
+    unit_y,
+)
 from colour import Color
 from math import cos, sin
 
@@ -41,17 +52,14 @@ def inside(back, front, align=None):
 def overlap(objects, align=None):
     return chalk.concat(prealign(objects, align)).center_xy()
 
-def nextto(left, right, sep=None, align=None):
-    return chalk.hcat(prealign([left, right], align), sep=sep).center_xy()
-
-def above(top, bottom, sep=None, align=None):
-    return chalk.vcat([top, bottom], sep=sep).center_xy()
+def nextto(left, right, sep=None, align=None, subdiagram_name=None):
+    return chalk.hcat(prealign([left, right], align, subdiagram_name), sep=sep, subdiagram_name=subdiagram_name).center_xy()
 
 def nextto_in(diagram, left, right, sep=None, align=None):
     return nextto(diagram, right, sep=sep, align=align, subdiagram_name=left)
 
 def above(top, bottom, sep=None, align=None, subdiagram_name=None):
-    return chalk.vcat(prealign([top, bottom], align), sep=sep, subdiagram_name=subdiagram_name).center_xy()
+    return chalk.vcat(prealign([top, bottom], align, subdiagram_name), sep=sep, subdiagram_name=subdiagram_name).center_xy()
 
 def above_in(diagram, top, bottom, sep=None, align=None):
     return above(diagram, bottom, sep=sep, align=align, subdiagram_name=top)
