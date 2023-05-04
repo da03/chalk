@@ -64,5 +64,7 @@ def above(top, bottom, sep=None, align=None, subdiagram_name=None):
 def above_in(diagram, top, bottom, sep=0, align=None):
     return above(diagram, bottom, sep=sep, align=align, subdiagram_name=top)
 
-def ellipse(width, height):
+def ellipse(width, height=None):
+    if height is None:
+        height = width
     return chalk.circle(radius=0.5).scale_x(width).scale_y(height)
